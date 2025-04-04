@@ -42,4 +42,12 @@ public class StorageService {
         Optional<ImageData> dbImageData = ss.findByName(filename);
         return dbImageData.map(ImageData::getType).orElse(null);
     }
+    public boolean deleteImage(String filename) {
+        Optional<ImageData> dbImageData = ss.findByName(filename);
+        if (dbImageData.isPresent()) {
+            ss.delete(dbImageData.get());
+            return true;
+        }
+        return false;
+    }
 }

@@ -43,4 +43,12 @@ public class ImageController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .body(imageByte);
     }
+    @DeleteMapping("/{imageName}")
+    public ResponseEntity<String> deleteImage(@PathVariable String imageName) {
+        boolean deleted = ss.deleteImage(imageName);
+        if (deleted) {
+            return ResponseEntity.status(HttpStatus.OK).body("Image deleted successfully: " + imageName);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Image not found: " + imageName);
+    }
 }
